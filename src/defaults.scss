@@ -1,0 +1,19 @@
+$size: 18px;
+
+$bp300: 300px;
+
+$primary: rgb(105, 120, 252);
+$secondary: rgb(184, 229, 250);
+$gray: #999999;
+
+$active: #20639b;
+$changed: #3caea3;
+$warning: #f6d55c;
+$error: #ed553b;
+
+@mixin breakpoint ($width) {
+  @media (max-width: $width) {
+    @content;
+  }
+}
+

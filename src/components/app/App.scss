@@ -1,0 +1,19 @@
+@import "../../index.scss";
+
+.AppLogin {
+  @include paper(center);
+}
+
+.AppUserList {
+  @include paper(flex-start);
+}
+
+.Error {
+  display: block;
+  width: 100%;
+  padding: $size;
+  background-color: $error;
+  color: white;
+  position: absolute;
+  bottom: 0px;
+}
