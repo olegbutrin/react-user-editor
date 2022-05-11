@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { getUsers, setPreview } from "../../services/actions";
-import { useDispatch, useSelector } from "../../services/hooks";
+import { useDispatch } from "../../services/hooks";
 import { TUser } from "../../types";
 import Spinner from "../spinner/Spinner";
 import "./UserList.scss";
@@ -61,9 +61,14 @@ const UserCard = ({ data }: IUserCardComponent) => {
   );
 };
 
-const UserList = () => {
+interface IUserListComponent {
+  requested: boolean;
+  token: string;
+  users: Array<TUser>;
+}
+
+const UserList = ({ requested, token, users }: IUserListComponent) => {
   const dispatch = useDispatch();
-  const { usersStatus, token, users } = useSelector((store) => store.app);
 
   useEffect(() => {
     dispatch(getUsers(token));
@@ -77,12 +82,12 @@ const UserList = () => {
     <div className="UserList">
       <div className="UserHeader">
         <span className="UserHeaderText">User List</span>
-        {usersStatus !== "request" && (
+        {!requested && (
           <div className="button" onClick={fetchUserCallback}>
             ⭮
           </div>
         )}
-        {usersStatus === "request" && <Spinner />}
+        {requested && <Spinner />}
       </div>
       {users.map((user) => {
         return <UserCard key={"USER_" + user.id} data={user} />;

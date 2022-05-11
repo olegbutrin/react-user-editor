@@ -25,3 +25,9 @@ $error: #ed553b;
   flex-direction: column;
   gap: $size;
 }
+
+%flexrow {
+  display: flex;
+  flex-direction: row;
+  gap: $size;
+}

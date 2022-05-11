@@ -44,6 +44,13 @@ export type TFetchUsers = (
   token: string
 ) => void;
 
+export type TFetchUsersUp = (
+  onSuccess: TApiCallback<TRawUserData>,
+  onError: TApiCallback<string>,
+  users: TUser,
+  token: string
+) => void;
+
 export type TFetchSave = (
   onSuccess: TApiCallback<boolean>,
   onError: TApiCallback<string>
@@ -57,4 +64,5 @@ export type TAppStore = {
   preview: number | null;
   saveStatus: TRequestStatus;
   error: string;
+  modified: boolean;
 };

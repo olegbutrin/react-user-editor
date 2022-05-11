@@ -14,7 +14,10 @@ input {
   font-size: $size;
   padding: calc($size / 3) $size;
   border: 1px solid;
-  @include breakpoint ($bp300) {
+  @include breakpoint($bp600) {
+    max-width: 80vw;
+  }
+  @include breakpoint($bp300) {
     max-width: 60vw;
   }
 }
@@ -26,5 +29,5 @@ input {
   justify-content: $start;
   gap: $size;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
 }

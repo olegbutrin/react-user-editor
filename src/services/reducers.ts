@@ -11,6 +11,7 @@ export const initialState: TAppStore = {
   saveStatus: "initial",
   preview: null,
   error: "",
+  modified: false,
 };
 
 export const appReducer: Reducer<TAppStore, TAppActions> = (
@@ -31,15 +32,31 @@ export const appReducer: Reducer<TAppStore, TAppActions> = (
     case constants.USERS_ERROR:
       return { ...state, usersStatus: "failed", error: action.payload };
     case constants.USERS_SUCCESS:
-      return { ...state, usersStatus: "success", users: action.payload };
+      return {
+        ...state,
+        usersStatus: "success",
+        users: action.payload,
+        modified: false,
+      };
     case constants.SAVE_REQUEST:
       return { ...state, saveStatus: "request" };
     case constants.SAVE_ERROR:
       return { ...state, saveStatus: "failed", error: action.payload };
     case constants.SAVE_SUCCESS:
-      return { ...state, saveStatus: "success" };
+      return { ...state, saveStatus: "success", modified: false };
     case constants.PREVIEW_USER:
       return { ...state, preview: action.payload };
+    case constants.UPDATE_USER:
+      return {
+        ...state,
+        users: [
+          ...state.users.map((user) => {
+            return user.id === action.payload.id ? action.payload : user;
+          }),
+        ],
+        preview: null,
+        modified: true,
+      };
     default:
       return state;
   }

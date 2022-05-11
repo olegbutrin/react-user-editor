@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import * as constants from "./constants";
 import { TUser } from "../types";
-import { fetchLogin, fetchUsers } from "./api";
+import { fetchLogin, fetchUsers, fetchUserUp } from "./api";
 
 export interface ILoginRequest {
   readonly type: typeof constants.LOGIN_REQUEST;
@@ -53,6 +53,11 @@ export interface IPreviewUser {
   readonly payload: number;
 }
 
+export interface IUpdateUser {
+  readonly type: typeof constants.UPDATE_USER;
+  readonly payload: TUser;
+}
+
 export type TAppActions =
   | ILoginRequest
   | ILoginSuccess
@@ -64,7 +69,8 @@ export type TAppActions =
   | ISaveRequest
   | ISaveSuccess
   | ISaveError
-  | IPreviewUser;
+  | IPreviewUser
+  | IUpdateUser;
 
 export const userLogin = (user: string, pass: string) => {
   return (dispatch: Dispatch) => {
@@ -111,8 +117,38 @@ export const getUsers = (token: string) => {
   };
 };
 
+export const uploadUser = (user: TUser, token: string) => {
+  return (dispatch: Dispatch) => {
+    dispatch({ type: constants.SAVE_REQUEST });
+    fetchUserUp(
+      (data) => {
+        if (data.status === "success") {
+          dispatch({ type: constants.SAVE_SUCCESS, payload: data.data });
+        } else {
+          dispatch({ type: constants.LOGIN_REJECT });
+        }
+      },
+      (error) => {
+        dispatch({ type: constants.SAVE_ERROR, payload: error });
+      },
+      user,
+      token
+    );
+  };
+};
+
 export const setPreview = (id: number | null) => {
   return (dispatch: Dispatch) => {
     dispatch({ type: constants.PREVIEW_USER, payload: id });
+  };
+};
+
+export const closePreview = () => {
+  return setPreview(null);
+};
+
+export const updateUser = (user: TUser) => {
+  return (dispatch: Dispatch) => {
+    dispatch({ type: constants.UPDATE_USER, payload: user });
   };
 };
