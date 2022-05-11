@@ -1,1 +1,101 @@
 @import "../../index.scss";
+
+.UserList {
+  display: flex;
+  flex-direction: column;
+  gap: calc($size * 2);
+  padding: calc($size * 1.5);
+  width: 600px;
+  height: 100%;
+
+  @include breakpoint($bp600) {
+    width: 80%;
+  }
+  @include breakpoint($bp300) {
+    width: 90%;
+  }
+}
+
+.UserHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: $size;
+  border-bottom: 2px solid $active;
+  .button {
+    align-self: flex-end;
+    padding: 0;
+    border: 0;
+    background-color: unset;
+    font-size: $size;
+    cursor: pointer;
+  }
+}
+
+.UserHeaderText {
+  font-size: calc($size / 6 * 7);
+  font-weight: 500;
+  color: $active;
+
+  @include breakpoint($bp600) {
+    font-size: $size;
+    width: 80%;
+  }
+  @include breakpoint($bp300) {
+    font-size: calc($size / 6 * 5);
+    width: 90%;
+  }
+}
+
+.UserCard {
+  display: grid;
+  gap: $size;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    "A  B  C"
+    "A  B  C"
+    "A  D  D";
+  padding-bottom: calc($size * 2);
+  border-bottom: 2px solid $gray;
+}
+
+.UserCardPhotoBox {
+  grid-area: A;
+  background-image: url("../../assets/user-placeholder.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+  height: auto;
+}
+
+.UserCardBoxLeft {
+  grid-area: B;
+  @extend %flexcolumn;
+}
+
+.UserCardBoxRight {
+  grid-area: C;
+  @extend %flexcolumn;
+}
+
+.UserCardBoxBottom {
+  grid-area: D;
+  @extend %flexcolumn;
+  align-items: flex-end;
+}
+
+.UserCardItem {
+  display: flex;
+  flex-direction: column;
+  gap: calc($size / 3);
+}
+
+.UserCardHeader {
+  font-size: calc($size / 3 * 2);
+  color: $gray;
+}
+
+.UserCardText {
+  color: $active;
+}

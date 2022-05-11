@@ -1,6 +1,8 @@
 $size: 18px;
 
 $bp300: 300px;
+$bp600: 600px;
+$bp1000: 1000px;
 
 $primary: rgb(105, 120, 252);
 $secondary: rgb(184, 229, 250);
@@ -17,3 +19,9 @@ $error: #ed553b;
   }
 }
 
+
+%flexcolumn {
+  display: flex;
+  flex-direction: column;
+  gap: $size;
+}

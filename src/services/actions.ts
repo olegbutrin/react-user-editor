@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import * as constants from "./constants";
-import { TRawUserData } from "../types";
+import { TUser } from "../types";
 import { fetchLogin, fetchUsers } from "./api";
 
 export interface ILoginRequest {
@@ -27,7 +27,7 @@ export interface IUserRequest {
 
 export interface IUserSuccess {
   readonly type: typeof constants.USERS_SUCCESS;
-  readonly payload: TRawUserData;
+  readonly payload: Array<TUser>;
 }
 
 export interface IUserError {
@@ -92,16 +92,21 @@ export const userLogin = (user: string, pass: string) => {
   };
 };
 
-export const getUsers = () => {
+export const getUsers = (token: string) => {
   return (dispatch: Dispatch) => {
     dispatch({ type: constants.USERS_REQUEST });
     fetchUsers(
       (data) => {
-        dispatch({ type: constants.USERS_SUCCESS, payload: data });
+        if (data.status === "success") {
+          dispatch({ type: constants.USERS_SUCCESS, payload: data.data });
+        } else {
+          dispatch({ type: constants.LOGIN_REJECT });
+        }
       },
       (error) => {
         dispatch({ type: constants.USERS_ERROR, payload: error });
-      }
+      },
+      token
     );
   };
 };

@@ -25,8 +25,11 @@ export const fetchLogin: TFetchLogin = (onSuccess, onError, user, pass) => {
     });
 };
 
-export const fetchUsers: TFetchUsers = (onSuccess, onError) => {
-  fetch(API_URL)
+export const fetchUsers: TFetchUsers = (onSuccess, onError, token) => {
+  const url = new URL(API_URL);
+  url.searchParams.set("action", "getuser");
+  url.searchParams.set("token", decodeURIComponent(token));
+  fetch(url.toString())
     .then((res) => {
       if (res.ok) {
         return res.json();
