@@ -1,46 +1,75 @@
-# Getting Started with Create React App
+# React User Editor
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+Демо SPA приложения для управления данными пользователей
 
-## Available Scripts
+Написано по [тестовому заданию](https://docs.google.com/document/d/1PFafdSZ2PcQLRtAyotvIupDmpGZ_6DnN9Q1kk0ogJm4/edit#heading=h.221ytfge2btv) на вакансию frontend-разработчика.
 
-In the project directory, you can run:
+Тестовая версия приложения на GitHub Pages: [react-user-editor](https://olegbutrin.github.io/react-user-editor)
 
-### `yarn start`
+## Frontend
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Приложение организовано в виде SPA (Single Page Application).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+В приложении доступны две страницы:
 
-### `yarn test`
++ Страница фрормы входа
++ Страница со списком пользователей
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Страница списка пользователей доступна только после авторизации на странице входа. Имя пользователя и пароль отправляются на сервер авторизации, который возвращает токен доступа при успешной проверке имени пользователя и пароля. Во время выполнения запроса в форме фхода отображается спиннер. Если имя пользователя и пароль на прошли проверку на сервере, форма входа меняет цвет на красный.
 
-### `yarn build`
+При успешном входе на сервер отправляется запрос на получение списка пользователей. Во время запроса в заголовке страницы отображается спиннер. При успешном получении данных на странице отображается список пользователей.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Данные пользователя из списка можно редактировать в отдельной форме. При сохранении данных пользователя они одновременно сохраняются в store и загружаются на сервер.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Если при доступе к серверу возникает ошибка, описание ошибки отображается внизу экарана.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Backend
 
-### `yarn eject`
+В качестве бакенд-сервера используется вебсервис и данные из [Google Spreadsheet:](https://docs.google.com/spreadsheets/d/1p_DQs6CFaEwCgsFDUu3Z_Ks5fzs3eu0pCZB7nAXZI1w/edit?usp=sharing).
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Для обхода потенциальных проблем с CORS при обращении к API используются только GET запросы с параметрами, которые возвращают объекты JSON. Такое подход накладывает определенные ограничения на количество передаваемых данных, поэтому поток данных в основном однонаправленный: от сервера к клиенту.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Авторизация
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+На сервере используется авторизация с использованием токенов, ограниченных по времени использования. Список пользователей с паролями и токенами хранится в таблице Google. Каждое обращение к серверу после успешной авторизации продляет время жизни токена. Потенциально можно реализовать генерацию и возвращение нового токена при каждом обращении к серверу. Если токен просрочен (по-умолчанию старше 20 минут), то авторизация на клиенте сбрасывается.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Имя пользователя и пароль по-умолчанию: `user` и `pass` соответственно.
 
-## Learn More
+### Получение списка пользователей
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Для получения списка пользователей используется действительный токен. Если токен проходит проверку, возвращается весь список пользователей.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+ToDo: сделать получение пользователей по списку ID.
+
+### Обновление данных пользователя
+
+Для обновления данных пользователя требуется действительный токен.
+
+## Инструментарий
+
++ React JS 18
++ Typescript
++ Redux
++ Thunk
++ Middleware
++ SASS
+
+Проект был создан при использовании [Create React App](https://github.com/facebook/create-react-app).
+
+## Установка и запуск приложения
+
+Для устанаовки и запуска рекомендуется использовать yarn:
+
++ `yarn`
+
+Устанавиливает зависимости для приложения
+
++ `yarn start`
+
+Запускает приложение в режиме разработчика\
+Откройте [http://localhost:3000](http://localhost:3000) для просмотра в браузере.
+
++ `yarn build`
+
+Собирает рабочую версию в папке `build`.\
+Это полноценная версия, готовая к работе.
