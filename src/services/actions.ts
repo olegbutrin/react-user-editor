@@ -58,6 +58,11 @@ export interface IUpdateUser {
   readonly payload: TUser;
 }
 
+export interface IPingError {
+  readonly type: typeof constants.PING_ERROR;
+  readonly payload: string;
+}
+
 export type TAppActions =
   | ILoginRequest
   | ILoginSuccess
@@ -70,7 +75,8 @@ export type TAppActions =
   | ISaveSuccess
   | ISaveError
   | IPreviewUser
-  | IUpdateUser;
+  | IUpdateUser
+  | IPingError;
 
 export const userLogin = (user: string, pass: string) => {
   return (dispatch: Dispatch) => {
@@ -111,6 +117,30 @@ export const getUsers = (token: string) => {
       },
       (error) => {
         dispatch({ type: constants.USERS_ERROR, payload: error });
+      },
+      token
+    );
+  };
+};
+
+export const pingServer = (token: string) => {
+  return (dispatch: Dispatch) => {
+    fetchUsers(
+      (data) => {
+        switch (data.status) {
+          case "success":
+            dispatch({ type: constants.LOGIN_SUCCESS, payload: data.token });
+            break;
+          case "unauthorized":
+            dispatch({ type: constants.LOGIN_REJECT });
+            break;
+          case "unknown":
+            dispatch({ type: constants.LOGIN_ERROR, payload: "API Error!" });
+            break;
+        }
+      },
+      (error) => {
+        dispatch({ type: constants.PING_ERROR, payload: error });
       },
       token
     );

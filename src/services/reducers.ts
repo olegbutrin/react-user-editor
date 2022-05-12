@@ -26,7 +26,13 @@ export const appReducer: Reducer<TAppStore, TAppActions> = (
     case constants.LOGIN_SUCCESS:
       return { ...state, tokenStatus: "success", token: action.payload };
     case constants.LOGIN_REJECT:
-      return { ...state, tokenStatus: "rejected", token: initialState.token };
+      return {
+        ...state,
+        tokenStatus: "rejected",
+        usersStatus: initialState.usersStatus,
+        saveStatus: initialState.saveStatus,
+        token: initialState.token,
+      };
     case constants.USERS_REQUEST:
       return { ...state, usersStatus: "request" };
     case constants.USERS_ERROR:
@@ -36,14 +42,13 @@ export const appReducer: Reducer<TAppStore, TAppActions> = (
         ...state,
         usersStatus: "success",
         users: action.payload,
-        modified: false,
       };
     case constants.SAVE_REQUEST:
       return { ...state, saveStatus: "request" };
     case constants.SAVE_ERROR:
       return { ...state, saveStatus: "failed", error: action.payload };
     case constants.SAVE_SUCCESS:
-      return { ...state, saveStatus: "success", modified: false };
+      return { ...state, saveStatus: "success" };
     case constants.PREVIEW_USER:
       return { ...state, preview: action.payload };
     case constants.UPDATE_USER:
@@ -57,6 +62,8 @@ export const appReducer: Reducer<TAppStore, TAppActions> = (
         preview: null,
         modified: true,
       };
+    case constants.PING_ERROR:
+      return { ...state, tokenStatus: "failed", error: action.payload };
     default:
       return state;
   }

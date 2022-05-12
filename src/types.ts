@@ -51,10 +51,11 @@ export type TFetchUsersUp = (
   token: string
 ) => void;
 
-export type TFetchSave = (
+export type TFetchPing = (
   onSuccess: TApiCallback<boolean>,
   onError: TApiCallback<string>
 ) => void;
+
 
 export type TAppStore = {
   token: string;

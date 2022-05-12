@@ -73,3 +73,23 @@ export const fetchUserUp: TFetchUsersUp = (onSuccess, onError, user, token) => {
       onError(error.message);
     });
 };
+
+export const fetchPing: TFetchUsers = (onSuccess, onError, token) => {
+  const url = new URL(API_URL);
+  url.searchParams.set("action", "ping");
+  url.searchParams.set("token", encodeURIComponent(token));
+  fetch(url.toString())
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error("Request failed: " + res.statusText);
+      }
+    })
+    .then((data) => {
+      onSuccess(data);
+    })
+    .catch((error: Error) => {
+      onError(error.message);
+    });
+};
