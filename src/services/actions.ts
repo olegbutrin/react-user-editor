@@ -50,7 +50,7 @@ export interface ISaveError {
 
 export interface IPreviewUser {
   readonly type: typeof constants.PREVIEW_USER;
-  readonly payload: number;
+  readonly payload: string;
 }
 
 export interface IUpdateUser {
@@ -58,8 +58,18 @@ export interface IUpdateUser {
   readonly payload: TUser;
 }
 
+export interface IAddUser {
+  readonly type: typeof constants.ADD_USER;
+  readonly payload: TUser;
+}
+
 export interface IPingError {
   readonly type: typeof constants.PING_ERROR;
+  readonly payload: string;
+}
+
+export interface IFindText {
+  readonly type: typeof constants.FIND_TEXT;
   readonly payload: string;
 }
 
@@ -76,7 +86,9 @@ export type TAppActions =
   | ISaveError
   | IPreviewUser
   | IUpdateUser
-  | IPingError;
+  | IAddUser
+  | IPingError
+  | IFindText;
 
 export const userLogin = (user: string, pass: string) => {
   return (dispatch: Dispatch) => {
@@ -167,7 +179,7 @@ export const uploadUser = (user: TUser, token: string) => {
   };
 };
 
-export const setPreview = (id: number | null) => {
+export const setPreview = (id: string | null) => {
   return (dispatch: Dispatch) => {
     dispatch({ type: constants.PREVIEW_USER, payload: id });
   };
@@ -180,5 +192,17 @@ export const closePreview = () => {
 export const updateUser = (user: TUser) => {
   return (dispatch: Dispatch) => {
     dispatch({ type: constants.UPDATE_USER, payload: user });
+  };
+};
+
+export const addUser = (user: TUser) => {
+  return (dispatch: Dispatch) => {
+    dispatch({ type: constants.ADD_USER, payload: user });
+  };
+};
+
+export const findText = (text: string) => {
+  return (dispatch: Dispatch) => {
+    dispatch({ type: constants.FIND_TEXT, payload: text });
   };
 };

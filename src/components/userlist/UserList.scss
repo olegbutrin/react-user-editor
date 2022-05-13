@@ -1,13 +1,14 @@
 @import "../../index.scss";
 
 .UserList {
-  display: flex;
-  flex-direction: column;
+  @extend %flexcolumn;
   gap: calc($size * 2);
   padding: calc($size * 1.5);
-  margin-bottom: calc($size * 2);
+  margin-top: calc($size * 6);
+  margin-bottom: calc($size * 6);
   width: 600px;
   height: 100%;
+  position: relative;
 
   @include breakpoint($bp600) {
     width: 80%;
@@ -17,36 +18,108 @@
   }
 }
 
-.UserHeader {
-  display: flex;
-  flex-direction: row;
+.UserFix {
+  @extend %flexrow;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  padding-top: calc($size * 1.5);
+  padding-bottom: calc($size * 2);
+  position: fixed;
+  top: 0;
+  background-color: white;
+  width: 100%;
+  z-index: 1;
+}
+
+.UserHeader {
+  display: grid;
+  gap: $size;
+  grid-template-columns: (100px auto 20px);
+  grid-template-areas: "A B C";
+
   padding-bottom: $size;
   border-bottom: 2px solid $active;
+  width: 600px;
+
+  @include breakpoint($bp600) {
+    font-size: $size;
+    width: 80%;
+    grid-template-columns: (auto 20px);
+    grid-template-areas:
+      "A A"
+      "B C";
+  }
+  @include breakpoint($bp300) {
+    font-size: calc($size / 6 * 5);
+    width: 90%;
+    grid-template-columns: (auto 20px);
+    grid-template-areas:
+      "A A"
+      "B C";
+  }
+}
+
+.UserHeaderText {
+  grid-area: A;
+  font-size: calc($size / 3 * 4);
+  vertical-align: middle;
+  font-weight: 500;
+  color: $active;
+}
+
+.UserHeaderTools {
+  @extend %flexrow;
+  grid-area: B;
+  align-items: stretch;
+  justify-content: flex-start;
+
   .button {
-    align-self: flex-end;
+    @extend %flexrow;
+    background-color: $active;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 0 calc($size / 2);
+    height: calc($size / 3 * 5);
+    cursor: pointer;
+  }
+
+  .SearchContainer {
+    position: relative;
+    &:before {
+      content: "🔍";
+      position: absolute;
+      left: calc($size / 3);
+      font-size: calc($size * 0.8);
+      top: calc($size * 0.2);
+    }
+
+    input {
+      font-size: calc($size / 3 * 2);
+      padding: calc($size / 3);
+      padding-left: calc($size * 1.8);
+      font-weight: 500;
+
+      &.failed {
+        background-color: $error;
+        color: white;
+      }
+    }
+  }
+}
+
+.UserHeaderUpdate {
+  @extend %flexcolumn;
+  grid-area: C;
+  align-items: flex-end;
+  justify-content: flex-end;
+  .button {
     padding: 0;
     border: 0;
     background-color: unset;
     font-size: $size;
     font-weight: 700;
     cursor: pointer;
-  }
-}
-
-.UserHeaderText {
-  font-size: calc($size / 6 * 7);
-  font-weight: 500;
-  color: $active;
-
-  @include breakpoint($bp600) {
-    font-size: $size;
-    width: 80%;
-  }
-  @include breakpoint($bp300) {
-    font-size: calc($size / 6 * 5);
-    width: 90%;
   }
 }
 
@@ -103,6 +176,28 @@
   @extend %flexrow;
   padding-top: $size;
   justify-content: flex-end;
+  button {
+    cursor: pointer;
+    font-size: $size;
+    padding: calc($size / 3) $size;
+    border: 1px solid;
+    &.edit {
+      background-color: $changed;
+      color: white;
+    }
+    &.remove {
+      background-color: $error;
+      color: white;
+    }
+    @include breakpoint($bp600) {
+      font-size: calc($size / 6 * 5);
+      padding: calc($size / 3);
+    }
+    @include breakpoint($bp300) {
+      font-size: calc($size / 6 * 5);
+      padding: calc($size / 4);
+    }
+  }
 }
 
 .UserCardItem {
@@ -118,4 +213,8 @@
 
 .UserCardText {
   color: $active;
+
+  &.marked {
+    background-color: $warning;
+  }
 }

@@ -23,6 +23,9 @@
   &.rejected {
     background-color: $error;
   }
+  span {
+    font-size: calc($size / 3 * 4);
+  }
 }
 
 .LoginForm {

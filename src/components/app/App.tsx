@@ -6,7 +6,7 @@ import UserList from "../userlist/UserList";
 import Preview from "../preview/Preview";
 
 const App = () => {
-  const { tokenStatus, usersStatus, saveStatus, token, error, preview, users } =
+  const { tokenStatus, usersStatus, saveStatus, token, error, preview, users, findtext } =
     useSelector((store) => store.app);
   const [logged, setLogged] = useState<boolean>(false);
   const [requested, setRequested] = useState<boolean>(false);
@@ -31,6 +31,7 @@ const App = () => {
           requested={requested}
           token={token}
           users={users}
+          findtext={findtext}
         />
       )}
       {error && <div className="Error">{error}</div>}

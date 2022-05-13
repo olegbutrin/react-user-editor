@@ -4,12 +4,13 @@ export type TLoginStatus = Omit<TRequestStatus, "rejected" | "outdated">;
 export type TPreviewUser = number | null;
 
 export type TUser = {
-  id: number;
+  id: string;
   firstname: string;
   lastname: string;
   email: string;
   phone: string;
   website: string;
+  removed?: boolean;
 };
 
 export type TRawLoginData = {
@@ -62,8 +63,8 @@ export type TAppStore = {
   tokenStatus: TLoginStatus;
   users: Array<TUser>;
   usersStatus: TRequestStatus;
-  preview: number | null;
+  preview: string | null;
   saveStatus: TRequestStatus;
   error: string;
-  modified: boolean;
+  findtext: string;
 };

@@ -9,6 +9,7 @@ export const USERS_ERROR: "USERS_ERROR" = "USERS_ERROR";
 
 export const PREVIEW_USER: "PREVIEW_USER" = "PREVIEW_USER";
 export const UPDATE_USER: "UPDATE_USER" = "UPDATE_USER";
+export const ADD_USER: "ADD_USER" = "ADD_USER";
 
 export const SAVE_REQUEST: "SAVE_REQUEST" = "SAVE_REQUEST";
 export const SAVE_SUCCESS: "SAVE_SUCCESS" = "SAVE_SUCCESS";
@@ -16,3 +17,4 @@ export const SAVE_ERROR: "SAVE_ERROR" = "SAVE_ERROR";
 
 export const PING_ERROR: "PING_ERROR" = "PING_ERROR";
 
+export const FIND_TEXT: "FIND_TEXT" = "FIND_TEXT";

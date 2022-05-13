@@ -52,12 +52,16 @@ export const fetchUserUp: TFetchUsersUp = (onSuccess, onError, user, token) => {
     user.lastname,
     user.email,
     user.phone,
-    user.website
-  ]
+    user.website,
+    user.removed ? user.removed : "",
+  ];
   const url = new URL(API_URL);
   url.searchParams.set("action", "setuser");
   url.searchParams.set("token", encodeURIComponent(token));
-  url.searchParams.set("user", encodeURIComponent(btoa(JSON.stringify(dataArr))));
+  url.searchParams.set(
+    "user",
+    encodeURIComponent(btoa(JSON.stringify(dataArr)))
+  );
   fetch(url.toString())
     .then((res) => {
       if (res.ok) {

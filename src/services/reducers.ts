@@ -11,7 +11,7 @@ export const initialState: TAppStore = {
   saveStatus: "initial",
   preview: null,
   error: "",
-  modified: false,
+  findtext: "",
 };
 
 export const appReducer: Reducer<TAppStore, TAppActions> = (
@@ -62,8 +62,12 @@ export const appReducer: Reducer<TAppStore, TAppActions> = (
         preview: null,
         modified: true,
       };
+    case constants.ADD_USER:
+      return { ...state, users: [...state.users, action.payload] };
     case constants.PING_ERROR:
       return { ...state, tokenStatus: "failed", error: action.payload };
+    case constants.FIND_TEXT:
+      return { ...state, findtext: action.payload };
     default:
       return state;
   }

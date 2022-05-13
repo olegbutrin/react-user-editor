@@ -124,7 +124,7 @@ const UserForm = ({ user, onSave, onClose }: IUserFormComponent) => {
 };
 
 interface IPreviewComponent {
-  preview: number;
+  preview: string;
   users: Array<TUser>;
   token: string;
 }

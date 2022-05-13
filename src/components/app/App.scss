@@ -6,6 +6,8 @@
 
 .AppUserList {
   @include paper(flex-start);
+  padding: calc($size * 2) 0;
+  height: fit-content;
 }
 
 .Error {
