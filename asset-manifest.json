@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/react-user-editor/static/css/main.02f29503.css",
-    "main.js": "/react-user-editor/static/js/main.0f2419a1.js",
+    "main.css": "/react-user-editor/static/css/main.26bfa430.css",
+    "main.js": "/react-user-editor/static/js/main.1203f3d9.js",
     "static/js/787.57d1c4a8.chunk.js": "/react-user-editor/static/js/787.57d1c4a8.chunk.js",
     "index.html": "/react-user-editor/index.html",
     "static/media/user-placeholder.svg": "/react-user-editor/static/media/user-placeholder.9dc1ef5d3490f3341ab7.svg",
-    "main.02f29503.css.map": "/react-user-editor/static/css/main.02f29503.css.map",
-    "main.0f2419a1.js.map": "/react-user-editor/static/js/main.0f2419a1.js.map",
+    "main.26bfa430.css.map": "/react-user-editor/static/css/main.26bfa430.css.map",
+    "main.1203f3d9.js.map": "/react-user-editor/static/js/main.1203f3d9.js.map",
     "787.57d1c4a8.chunk.js.map": "/react-user-editor/static/js/787.57d1c4a8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.02f29503.css",
-    "static/js/main.0f2419a1.js"
+    "static/css/main.26bfa430.css",
+    "static/js/main.1203f3d9.js"
   ]
 }
